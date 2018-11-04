@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 
-import { Perso } from './Perso';
+import type { Perso } from './Perso';
 
 type Props = {
   list: Perso[],
@@ -9,8 +9,10 @@ type Props = {
 
 const List: React.StatelessFunctionalComponent<Props> = ({ list }) => (
   <ul>
-    {list.map(perso => (
-      <li key={perso.nom}>{perso.nom}</li>
+    {list.map(({ identite }) => (
+      <li key={identite.name}>
+        {identite.name} {identite.origine} {identite.metier} {identite.sexe}
+      </li>
     ))}
   </ul>
 );

@@ -1,45 +1,75 @@
 // @flow
 import * as React from 'react';
+import { useState } from 'react';
 
-import { Perso } from './Perso';
+import { sexes } from './Perso';
+import type { Identite, Perso } from './Perso';
 
 type Props = {
-  onSubmit: Perso => void,
+  onSubmit: Identite => void,
 };
 
-type State = {
-  nom: string,
-};
+function PersosForm({ onSubmit }: Props) {
+  const [name, setName] = useState('');
+  const [origine, setOrigine] = useState('');
+  const [metier, setMetier] = useState('');
+  const [sexe, setSexe] = useState(sexes.Unknown);
 
-class PersosForm extends React.Component<Props, State> {
-  state = {
-    nom: '',
-  };
+  function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const identite = { name, origine, metier, sexe };
+    onSubmit(identite);
+  }
 
-  handleInputChange = (event: SyntheticEvent<HTMLInputElement>) => {
+  /*   handleInputChange = (event: SyntheticEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
     this.setState({ [name]: value });
-  };
+  }; */
 
-  handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
+  /* handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
     this.props.onSubmit(this.state);
-  };
+  }; */
 
-  render() {
-    const { onSubmit } = this.props;
-    const { nom } = this.state;
-
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Nom:
-          <input name="nom" value={nom} onChange={this.handleInputChange} />
-        </label>
-        <button type="submit">Save</button>
-      </form>
-    );
-  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Nom:
+        <input
+          name="name"
+          value={name}
+          onChange={e => setName(e.target.value)}
+        />
+      </label>
+      <label>
+        Origine:
+        <input
+          name="origine"
+          value={origine}
+          onChange={e => setOrigine(e.target.value)}
+        />
+      </label>
+      <label>
+        Métier:
+        <input
+          name="metier"
+          value={metier}
+          onChange={e => setMetier(e.target.value)}
+        />
+      </label>
+      <label>
+        Sexe:
+        <select onChange={e => setSexe(e.target.value)}>
+          {Object.keys(sexes).map(key => (
+            <option key={key} value={key}>
+              {key}
+            </option>
+          ))}
+        </select>
+      </label>
+      <button type="submit">Save</button>
+    </form>
+  );
 }
 
 export default PersosForm;

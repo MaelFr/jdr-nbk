@@ -5,8 +5,9 @@
   "dependencies": {
     "@reach/router": "^1.2.1",
     "emotion": "^9.2.12",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
+    "firebase": "^5.5.7",
+    "react": "16.7.0-alpha.0",
+    "react-dom": "16.7.0-alpha.0",
     "react-scripts": "2.0.5"
   },
   "scripts": {
@@ -25,6 +26,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "eslint-plugin-react-hooks": "^0.0.0",
     "flow-bin": "^0.84.0"
   }
 }
